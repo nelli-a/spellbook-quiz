@@ -1,0 +1,91 @@
+/* Global Styles */
+
+html, body {
+  font-family: 'Helvetica';
+}
+
+@font-face {
+  font-family: "HarryPotter";
+  src: url("./../fonts/HARRYP.ttf") format("truetype"), /* Safari, Android, iOS */
+       url("./../fonts/HARRYP.woff") format("woff"), /* Modern Browsers */
+       url("./../fonts/HARRYP.woff2") format("woff2"); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
+}
+
+html {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.background {
+  height: 100vh;
+  background:
+    linear-gradient(90deg,#fff .25em, transparent 0),
+    linear-gradient(90deg, #5D5D5D 50%, transparent 0),
+    linear-gradient(90deg, #AAAAAA 50%, #2A623D 0);
+    background-size: 2.25em, 4.5em, 9em;
+}
+
+
+/* Utility */
+
+.dark-green { color: #1A472A; }
+.light-green { color: #2A623D; }
+.dark-grey { color: #5D5D5D; }
+.light-grey { color: #AAAAAA; }
+
+.hp { font-family: 'HarryPotter'; }
+
+
+/* View-specific Styles */
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  width: 51em;
+  padding: 1em;
+  min-height: 420px;
+  margin-left: -1.25em;
+  border-radius: 30px;
+  -webkit-box-shadow: 10px 10px 58px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 58px 0px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 58px 0px rgba(0,0,0,0.75);
+}
+
+.vertical-center {
+  /* visually center */
+  margin-top: -46px;
+}
+
+.title {
+  text-align: center;
+  font-size: 48px;
+  margin-top: 0;
+}
+
+.subtitle {
+  text-align: center;
+  font-weight: 300;
+  color: gold;
+  font-size: 48px;
+  margin-top: 30px;
+  display: block;
+}
+
+button.get-started {
+  padding: 15px 25px;
+  font-size: 24px;
+  background-color: #2A623D;
+  border: none;
+  color: #fff;
+  font-weight: 800;
+  margin: 0px auto 0 auto;
+  display: block;
+}
+
+
