@@ -88,4 +88,19 @@ button.get-started {
   display: block;
 }
 
-
+button.answer {
+  padding: 10px 50px;
+  font-size: 20px;
+  background-color: #2A623D;
+  border: none;
+  color: #fff;
+  font-weight: 500;
+  margin: 3px;
+  display: inline;
+  width: 150px;
+  height: 40px;
+  padding: 5px;
+}
+.hidden {
+  display: none;
+}

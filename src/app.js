@@ -1,10 +1,14 @@
 document.addEventListener("DOMContentLoaded", function() {
-  // Handler when the DOM is fully loaded.
-function sayHello(obj){
-  alert("Harry Potter fans only");
-  debugger;
-  alert("I am giggles");
+  buttvar = document.querySelector("button.get-started")
+  buttvar.addEventListener("click", function(){
+    iv = document.querySelector(".introview")
+    iv.classList.add("hidden")
+    qv = document.querySelector(".questionview")
+    qv.classList.remove("hidden")
 
-};
-sayHello();
+
+
+  });
+  // Handler when the DOM is fully loaded.
+
 });
