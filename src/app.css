@@ -24,12 +24,46 @@ html {
   height: 100vh;
   background:
     linear-gradient(90deg,#fff .25em, transparent 0),
-    linear-gradient(90deg, #5D5D5D 50%, transparent 0),
-    linear-gradient(90deg, #AAAAAA 50%, #2A623D 0);
+    linear-gradient(90deg, #777777 50%, transparent 0),
+    linear-gradient(90deg, #999999 50%, #555555 0);
     background-size: 2.25em, 4.5em, 9em;
 }
 
+.background-slytherin {
+  height: 100vh;
+  background:
+  linear-gradient(90deg,#fff .25em, transparent 0),
+  linear-gradient(90deg, #5d5d5d 50%, transparent 0),
+  linear-gradient(90deg, #aaaaaa 50%, #033807 0);
+  background-size: 2.25em, 4.5em, 9em;
+}
 
+.background-gryffindor {
+  height: 100vh;
+  background:
+  linear-gradient(90deg,#fff .25em, transparent 0),
+  linear-gradient(90deg, #9c1203 50%, transparent 0),
+  linear-gradient(90deg, #eeba30 50%, #591313 0);
+  background-size: 2.25em, 4.5em, 9em;
+}
+
+.background-ravenclaw {
+  height: 100vh;
+  background:
+  linear-gradient(90deg,#fff .25em, transparent 0),
+  linear-gradient(90deg, #475167 50%, transparent 0),
+  linear-gradient(90deg, #919192 50%, #00165e 0);
+  background-size: 2.25em, 4.5em, 9em;
+}
+
+.background-hufflepuff {
+  height: 100vh;
+  background:
+  linear-gradient(90deg,#fff .25em, transparent 0),
+  linear-gradient(90deg, #e3a000 50%, transparent 0),
+  linear-gradient(90deg, #f0c75e 50%, #372e29 0);
+  background-size: 2.25em, 4.5em, 9em;
+}
 /* Utility */
 
 .dark-green { color: #1A472A; }
@@ -89,6 +123,20 @@ button.get-started {
 }
 
 button.answer {
+  padding: 10px 50px;
+  font-size: 20px;
+  background-color: #2A623D;
+  border: none;
+  color: #fff;
+  font-weight: 500;
+  margin: 3px;
+  display: inline;
+  width: 150px;
+  height: 40px;
+  padding: 5px;
+}
+
+button.answer2 {
   padding: 10px 50px;
   font-size: 20px;
   background-color: #2A623D;
