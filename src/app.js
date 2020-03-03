@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
     qtn2 = document.querySelector(".questionview2");
     qtn2.classList.remove("hidden");
   });
+  document.getElementById('questionLabel').innerHTML = testQuestion();
 })
 
   // Handler when the DOM is fully loaded.
@@ -25,6 +26,7 @@ function randomNumber(arrayObj){
   var randomIndex = Math.round(Math.random()*(arrayObj.length-1));
   return randomIndex;
 }
+
 var questionLimit = 10;
 var questions = [];
 
@@ -36,6 +38,9 @@ function createEffects(spellData){
     effectAll.push(newEffect);
   })
   return effectAll;
+}
+function testQuestion(){
+  return "test question worked";
 }
 function createQuestions(spellData){
   var finalQuestion = {};
@@ -54,16 +59,22 @@ function createQuestions(spellData){
       wrong_effects: wrongEffects
     };
     var fullQuestion = {...questions[i], ...effectsObj};
+    finalQuestion[i] = fullQuestion;
     i++;
-    finalQuestion['Question '+i] = fullQuestion;
   };
   return finalQuestion;
 }
+
 fetch('https://www.potterapi.com/v1/spells?key=$2a$10$6eUG7nLXoZX8bCzCYKjSVORXej7pITLm8RSnSc41c2PoB7YaO9.GG')
 .then(response => {
   return response.json();
 })
 .then(data => {
   var finalTest = createQuestions(data);
-  console.log(finalTest);
+  var l = 0;
+  while (l < 10) {
+    console.log(finalTest[l].spell);
+
+    l++;
+  }
 })
