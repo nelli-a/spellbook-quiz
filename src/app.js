@@ -27,26 +27,46 @@ function randomNumber(arrayObj){
 }
 var questionLimit = 10;
 var questions = [];
+
+function createEffects(spellData){
+  var effectAll = [];
+  var e = 0;
+  spellData.map(spellData => {
+    var newEffect = spellData.effect;
+    effectAll.push(newEffect);
+  })
+  return effectAll;
+}
 function createQuestions(spellData){
   var i = 0;
-  while (i <= 9) {
+  while (i < questionLimit) {
     var rN = randomNumber(spellData);
     questions[i] = spellData[rN];
     i++;
-    //while (n <=3 )
-        //rW = randomNumber(spellData);
-        //if (rW !== rN)
-  };
-  //create 3 wrong effects, it already has the correct effect
+    var wrongEffects = [];
+    var n = 0;
+    while (n <= 2) {
+      rW = randomNumber(spellData);
+      wrongEffects[n] = createEffects(spellData)[rW];
+      n++;
+    }
+    console.log(wrongEffects);
+//    while (n <= 2) {
+//      rW = randomNumber(spellData);
+//      var effectArray = [];
+//      effectArray = spellData.effect;
+//      console.log("My effect array:", effectArray);
+//      if (rW !== rN) {
+//        console.log("Yes");
+//        n++;
+//        }
+//       else {
+//        continue;
+//      }
+//      console.log(wrongEffect);
+};
   console.log(questions);
-//[
- //{
-//   questionText: 'Unlocks door',
-//   wrongAnswers: ['spell1', 'spell2', 'spell3']
-//   correctAnswer: 'spell4'
-// }
-//]
-}
+};
 fetch('https://www.potterapi.com/v1/spells?key=$2a$10$6eUG7nLXoZX8bCzCYKjSVORXej7pITLm8RSnSc41c2PoB7YaO9.GG')
 .then(response => {
   return response.json();
@@ -54,4 +74,5 @@ fetch('https://www.potterapi.com/v1/spells?key=$2a$10$6eUG7nLXoZX8bCzCYKjSVORXej
 .then(data => {
   console.log(data);
   var finalQuestions = createQuestions(data);
+  var effects = createEffects(data);
 })
