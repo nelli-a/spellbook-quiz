@@ -38,11 +38,11 @@ function createEffects(spellData){
   return effectAll;
 }
 function createQuestions(spellData){
+  var finalQuestion = {};
   var i = 0;
   while (i < questionLimit) {
     var rN = randomNumber(spellData);
     questions[i] = spellData[rN];
-    i++;
     var wrongEffects = [];
     var n = 0;
     while (n <= 2) {
@@ -50,29 +50,20 @@ function createQuestions(spellData){
       wrongEffects[n] = createEffects(spellData)[rW];
       n++;
     }
-    console.log(wrongEffects);
-//    while (n <= 2) {
-//      rW = randomNumber(spellData);
-//      var effectArray = [];
-//      effectArray = spellData.effect;
-//      console.log("My effect array:", effectArray);
-//      if (rW !== rN) {
-//        console.log("Yes");
-//        n++;
-//        }
-//       else {
-//        continue;
-//      }
-//      console.log(wrongEffect);
-};
-  console.log(questions);
-};
+    effectsObj = {
+      wrong_effects: wrongEffects
+    };
+    var fullQuestion = {...questions[i], ...effectsObj};
+    i++;
+    finalQuestion['Question '+i] = fullQuestion;
+  };
+  return finalQuestion;
+}
 fetch('https://www.potterapi.com/v1/spells?key=$2a$10$6eUG7nLXoZX8bCzCYKjSVORXej7pITLm8RSnSc41c2PoB7YaO9.GG')
 .then(response => {
   return response.json();
 })
 .then(data => {
-  console.log(data);
-  var finalQuestions = createQuestions(data);
-  var effects = createEffects(data);
+  var finalTest = createQuestions(data);
+  console.log(finalTest);
 })
