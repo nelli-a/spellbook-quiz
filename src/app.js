@@ -4,7 +4,6 @@ var effectAnswers = [];
 var finalTest;
 var housePlacement; //the house the user is in
 var questionLimit = 10; //the number of questions for the quiz
-var questions = [];
 
 //Script
 document.addEventListener("DOMContentLoaded", function() {
@@ -109,6 +108,7 @@ finalQuestion is the final sorted data set that will be used for the quiz
 */
 function createQuestions(spellData){
   var finalQuestion = {};
+  var questions = [];
   var i = 0;
   while (i < questionLimit) {
     var rN = randomNumber(spellData);
@@ -117,8 +117,10 @@ function createQuestions(spellData){
     var n = 0;
     while (n <= 2) {
       rW = randomNumber(spellData);
-      wrongEffects[n] = createEffects(spellData)[rW];
-      n++;
+      if (rW !== rN) {
+        wrongEffects[n] = createEffects(spellData)[rW];
+        n++;
+      }
     }
     effectsObj = {
       wrong_effects: wrongEffects
