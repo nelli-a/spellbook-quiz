@@ -58,6 +58,7 @@ function setHouse(backgroundHouse){
   hoPl.classList.add("hidden");
   bgn = document.querySelector(".beginning");
   bgn.classList.remove("hidden");
+  //the if-else statement stored the house name based on the one chosen
   if (backgroundHouse == 'background-gryffindor'){
     housePlacement = "Gryffindor";
   }
@@ -100,7 +101,12 @@ function createEffects(spellData){
   return allEffects;
 }
 
-//creates an array with all the questions, effects and wrong effects
+/*
+createQuestions is designed to create the final data set of arrays, each has a spell, an effect,
+3 wrong effects, the type, etc. It is based on the question limit provided.
+spellData is the API given
+finalQuestion is the final sorted data set that will be used for the quiz
+*/
 function createQuestions(spellData){
   var finalQuestion = {};
   var i = 0;
