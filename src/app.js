@@ -12,8 +12,6 @@ document.addEventListener("DOMContentLoaded", function() {
   getStarted.addEventListener("click", function(){
     bgn = document.querySelector(".beginning");
     bgn.classList.add("hidden");
-    qtn2 = document.querySelector(".questionview");
-    qtn2.classList.remove("hidden");
   });
 
   callTheAPI()
@@ -29,12 +27,10 @@ document.addEventListener("DOMContentLoaded", function() {
       console.log(finalTest[l].effect);
       effectAnswers.push(finalTest[l].wrong_effects);
       effectAnswers.push(finalTest[l].effect);
-      document.getElementById('answer1').innerHTML = effectAnswers[1];
       l++;
     }
     console.log(finalTest);
     var qstnNumber = 0;
-    document.getElementById('questionLabel').innerHTML = finalTest[3].spell;
   })
 })
 
