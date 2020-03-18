@@ -129,15 +129,25 @@ function createQuestions(spellData){
 function questionElement(questionCount){
   var qstn;
   //var buttonAnswers;
-  var qstnView = $('div');
+  var qstnView = $('div', {id: 'questionId'});
   qstn = $('<h1>' + (1 + questionCount) +  finalTest[questionCount].spell + '</h1>');
-  //buttonAnswers = displayAnswers(questionCount);
+  buttonAnswers = displayAnswers(questionCount);
   qstnView.append(qstn);
-  //qstnView.appen(buttonAnswers);
+  qstnView.appen(buttonAnswers);
 
   return qstnView;
 }
 
-//function displayAnswers(questionCount){
-//
+function displayAnswers(questionCount){
+  var buttons = $('<button class="answer">');
+  for (var i = 0; i < finalTest[questionCount].effects.length; i++){
+    var buttonInput = finalTest[questionCount].effects[i];
+    buttons.append(buttonInput);
+    console.log(buttons);
+  }
+  return buttons;
+}
+//function nextQuestion(){
+//  $('#questionId').remove();
+//  if(questionNumber)
 //}
