@@ -22,7 +22,6 @@ document.addEventListener("DOMContentLoaded", function() {
   })
   .then(data => {
     finalTest = createQuestions(data);
-    console.log(finalTest);
     var l = 0;
     while (l < 10) {
       console.log(finalTest[l].spell);
@@ -33,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function() {
       document.getElementById('answer1').innerHTML = effectAnswers[1];
       l++;
     }
-    console.log(effectAnswers);
+    console.log(finalTest);
     var qstnNumber = 0;
     document.getElementById('questionLabel').innerHTML = finalTest[3].spell;
   })
@@ -85,12 +84,12 @@ function randomNumber(arrayObj){
 
 
 /*
-createEffects is a function that creates an array with all the effects
+allEffects is a function that creates an array with all the effects
 It is used to create randomised wrong effects in createQuestions function
 spellData is the data set that is passed to the function (PotterAPI)
 allEffects is an array with all the effects
 */
-function createEffects(spellData){
+function allEffects(spellData){
   var allEffects = [];
   var e = 0;
   spellData.map(spellData => {
@@ -101,31 +100,39 @@ function createEffects(spellData){
 }
 
 /*
-createQuestions is designed to create the final data set of arrays, each has a spell, an effect,
-3 wrong effects, the type, etc. It is based on the question limit provided.
+createQuestions is designed to create the final data set of arrays, each has a spell, effects (3 wrong
+and 1 right), the index of the correct answer, the type, etc. It is based on the question limit provided.
 spellData is the API given
 finalQuestion is the final sorted data set that will be used for the quiz
 */
 function createQuestions(spellData){
-  var finalQuestion = {};
+  var finalQuestion = [];
   var questions = [];
   var i = 0;
   while (i < questionLimit) {
     var rN = randomNumber(spellData);
     questions[i] = spellData[rN];
-    var wrongEffects = [];
+    var effects = [];
     var n = 0;
+    //Create an array of wrong effects
     while (n <= 2) {
       rW = randomNumber(spellData);
       if (rW !== rN) {
-        wrongEffects[n] = createEffects(spellData)[rW];
+        effects[n] = allEffects(spellData)[rW];
         n++;
       }
     }
+    //Adding the correct effect to the wrong effects
+    var correctAnswerIndex = randomNumber(effects)+1;
+    effects.splice(correctAnswerIndex,0,allEffects(spellData)[rN]);
+    console.log(correctAnswerIndex);
     effectsObj = {
-      wrong_effects: wrongEffects
+      effects: effects
     };
-    var fullQuestion = {...questions[i], ...effectsObj};
+    correctAnswer = {
+      correct_answer: correctAnswerIndex
+    };
+    var fullQuestion = {...questions[i], ...effectsObj, ...correctAnswer};
     finalQuestion[i] = fullQuestion;
     i++;
   };
