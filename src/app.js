@@ -1,11 +1,10 @@
 //Global Variables
-var spellQuestion = [];
-var effectAnswers = [];
 var finalTest;
 var housePlacement; //the house the user is in
 var questionLimit = 10; //the number of questions for the quiz
+var questionNumber = 0;
+var questionView = $('#questions');
 
-//Script
 document.addEventListener("DOMContentLoaded", function() {
   houseButton = document.querySelector("button.houses");
   getStarted = document.querySelector("button.get-started");
@@ -20,19 +19,11 @@ document.addEventListener("DOMContentLoaded", function() {
   })
   .then(data => {
     finalTest = createQuestions(data);
-    var l = 0;
-    while (l < 10) {
-      console.log(finalTest[l].spell);
-      spellQuestion.push(finalTest[l].spell);
-      console.log(finalTest[l].effect);
-      effectAnswers.push(finalTest[l].wrong_effects);
-      effectAnswers.push(finalTest[l].effect);
-      l++;
-    }
     console.log(finalTest);
-    var qstnNumber = 0;
   })
 })
+
+
 
 function callTheAPI() {
   return fetch('https://www.potterapi.com/v1/spells?key=$2a$10$6eUG7nLXoZX8bCzCYKjSVORXej7pITLm8RSnSc41c2PoB7YaO9.GG');
@@ -134,3 +125,19 @@ function createQuestions(spellData){
   };
   return finalQuestion;
 }
+
+function questionElement(questionCount){
+  var qstn;
+  //var buttonAnswers;
+  var qstnView = $('div');
+  qstn = $('<h1>' + (1 + questionCount) +  finalTest[questionCount].spell + '</h1>');
+  //buttonAnswers = displayAnswers(questionCount);
+  qstnView.append(qstn);
+  //qstnView.appen(buttonAnswers);
+
+  return qstnView;
+}
+
+//function displayAnswers(questionCount){
+//
+//}
