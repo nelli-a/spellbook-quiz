@@ -4,6 +4,7 @@ $( document ).ready(function() {
   var housePlacement; //the house the user is in
   var questionLimit = 10; //the number of questions for the quiz
   var questionNumber = 0;
+  var chosenOption = [];
   window.questionView = $('#questions');
 
   houseButton = document.querySelector("button.houses");
@@ -22,6 +23,7 @@ $( document ).ready(function() {
   .then(data => {
     finalTest = createQuestions(data);
     nextQuestion();
+
   })
 
   function callTheAPI() {
@@ -137,9 +139,11 @@ $( document ).ready(function() {
   function displayAnswers(questionCount){
     var buttons = $('<div>');
     for (var i = 0; i < finalTest[questionCount].effects.length; i++){
-      var buttonInput = $('<button class = "answer">').append(finalTest[questionCount].effects[i]);
+      var insideButton = '<button data-id = ' + i + ' class = "answer">'
+      var buttonInput = $(insideButton).append(finalTest[questionCount].effects[i]);
       buttons.append(buttonInput);
     }
+
     return buttons;
   }
 
@@ -147,8 +151,26 @@ $( document ).ready(function() {
     $('#questionId').remove();
     if(questionNumber < finalTest.length) {
       window.nextQstn = questionElement(questionNumber);
-      questionView.append(nextQstn[0]);
+      questionView.append(nextQstn);
+      console.log("Question" + questionNumber);
+      window.answerButton = document.querySelectorAll("button.answer");
+      for (var y = 0; y<4; y++){
+        answerButton[y].addEventListener("click", function(event){
+          console.log(finalTest[questionNumber].correct_answer==event.target.dataset.id);
+          questionNumber++;
+          delete(answerButton);
+          nextQuestion();
+      });
+      }
     }
+    else{
+      //finalDisplay();
+      console.log("we done here");
+    }
+  }
+
+  //function finalDisplay(){
+
   }
 
 })
