@@ -157,6 +157,7 @@ $( document ).ready(function() {
       for (var y = 0; y<4; y++){
         answerButton[y].addEventListener("click", function(event){
           console.log(finalTest[questionNumber].correct_answer==event.target.dataset.id);
+          chosenOption[questionNumber] = finalTest[questionNumber].correct_answer==event.target.dataset.id;
           questionNumber++;
           delete(answerButton);
           nextQuestion();
@@ -164,13 +165,23 @@ $( document ).ready(function() {
       }
     }
     else{
-      //finalDisplay();
+      finalDisplay();
       console.log("we done here");
     }
   }
 
-  //function finalDisplay(){
-
+  function finalDisplay(){
+    var theFinalSay = $('<div>');
+    var rightAnswers = chosenOption.filter(Boolean).length;
+    var finalWords = $('<h1 class="hp title">');
+    finalWords.append("Congratulations! " + rightAnswers + " points to " + housePlacement);
+    theFinalSay.append(finalWords);
+    var finalTestScore = $('<h2>');
+    finalTestScore.append("You final score is " + rightAnswers + "/10.");
+    theFinalSay.append(finalTestScore);
+    console.log(chosenOption)
+    console.log(chosenOption.filter(Boolean).length)
+    questionView.append(theFinalSay);
   }
 
 })
