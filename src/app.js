@@ -1,5 +1,6 @@
 $( document ).ready(function() {
   //Global Variables
+  var fullData = [];
   var finalTest = [];
   var housePlacement; //the house the user is in
   var questionLimit = 10; //the number of questions for the quiz
@@ -66,9 +67,33 @@ $( document ).ready(function() {
   arrayObj is the object passed to the function
   randomIndex is the random integer generated
   */
-  function randomNumber(arrayObj){
-    var randomIndex = Math.round(Math.random()*(arrayObj.length-1));
+  function randomNumber(arrayObjLength){
+    var randomIndex = Math.round(Math.random()*(arrayObjLength-1));
     return randomIndex;
+  }
+
+  /*
+  This function will produce an array of random numbers and makes sure that none of them repeat
+  arrayLength is an integer that shows how many random numbers are needed
+  randomNumberLength is an integer that shows the maximum integer for the choice of randomNumbers
+  */
+
+  function randomArray (arrayLength, randomNumberLength, notEqual) {
+    var randomArray = [];
+    randomArray[0] = randomNumber(randomNumberLength);
+    for (var i = 1; i<arrayLength; i++){
+      var newIndex = randomNumber(randomNumberLength);
+      for (var y = 1; y<=randomArray.length; y++);{
+        if ((newIndex == randomArray[i-y]) || (newIndex == notEqual) ){
+          newIndex = randomNumber(randomNumberLength);
+          y = 1;
+        }
+        else{
+          randomArray[i] = newIndex;
+        }
+      }
+    }
+    return randomArray;
   }
 
 
@@ -95,25 +120,26 @@ $( document ).ready(function() {
   finalQuestion is the final sorted data set that will be used for the quiz
   */
   function createQuestions(spellData){
+    fullData = spellData;
     var finalQuestion = [];
     var questions = [];
+    var questionRandoms = randomArray(questionLimit, spellData.length);
     var i = 0;
     while (i < questionLimit) {
-      var rN = randomNumber(spellData);
-      questions[i] = spellData[rN];
+      newQuestionIndex = questionRandoms[i];
+      questions[i] = spellData[newQuestionIndex];
+      var effectRandoms = randomArray(3, spellData.length, newQuestionIndex);
       var effects = [];
       var n = 0;
       //Create an array of wrong effects
       while (n <= 2) {
-        rW = randomNumber(spellData);
-        if (rW !== rN) {
-          effects[n] = allEffects(spellData)[rW];
-          n++;
-        }
+        newEffectIndex = effectRandoms[n];
+        effects[n] = allEffects(spellData)[newEffectIndex];
+        n++;
       }
       //Adding the correct effect to the wrong effects
-      var correctAnswerIndex = randomNumber(effects)+1;
-      effects.splice(correctAnswerIndex,0,allEffects(spellData)[rN]);
+      var correctAnswerIndex = randomNumber(effects.length)+1;
+      effects.splice(correctAnswerIndex,0,allEffects(spellData)[newQuestionIndex]);
       effectsObj = {
         effects: effects
       };
@@ -152,11 +178,9 @@ $( document ).ready(function() {
     if(questionNumber < finalTest.length) {
       window.nextQstn = questionElement(questionNumber);
       questionView.append(nextQstn);
-      console.log("Question" + questionNumber);
       window.answerButton = document.querySelectorAll("button.answer");
       for (var y = 0; y<4; y++){
         answerButton[y].addEventListener("click", function(event){
-          console.log(finalTest[questionNumber].correct_answer==event.target.dataset.id);
           chosenOption[questionNumber] = finalTest[questionNumber].correct_answer==event.target.dataset.id;
           questionNumber++;
           delete(answerButton);
@@ -166,7 +190,6 @@ $( document ).ready(function() {
     }
     else{
       finalDisplay();
-      console.log("we done here");
     }
   }
 
@@ -179,8 +202,6 @@ $( document ).ready(function() {
     var finalTestScore = $('<h2>');
     finalTestScore.append("You final score is " + rightAnswers + "/10.");
     theFinalSay.append(finalTestScore);
-    console.log(chosenOption)
-    console.log(chosenOption.filter(Boolean).length)
     questionView.append(theFinalSay);
   }
 
