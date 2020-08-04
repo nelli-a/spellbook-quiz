@@ -76,20 +76,35 @@ $( document ).ready(function() {
   This function will produce an array of random numbers and makes sure that none of them repeat
   arrayLength is an integer that shows how many random numbers are needed
   randomNumberLength is an integer that shows the maximum integer for the choice of randomNumbers
+  notEqual is an optional integer that is checked it makes sure that array doesn't have values as
+  the not Equal integer
   */
 
   function randomArray (arrayLength, randomNumberLength, notEqual) {
     var randomArray = [];
     randomArray[0] = randomNumber(randomNumberLength);
-    for (var i = 1; i<arrayLength; i++){
+    var i = 1;
+    while (i < arrayLength) {
       var newIndex = randomNumber(randomNumberLength);
-      for (var y = 1; y<=randomArray.length; y++);{
-        if ((newIndex == randomArray[i-y]) || (newIndex == notEqual) ){
+      var y = 0;
+      while (y < randomArray.length) {
+        /*needs an y++*/
+        console.log("y is " + y + "; i is " + i);
+        console.log(randomArray[0]);
+        if (newIndex == randomArray[i-y]){
+          console.log("The new index equalled some array num")
           newIndex = randomNumber(randomNumberLength);
           y = 1;
+          continue;
+        }
+        else if (newIndex == notEqual) {
+          console.log("new index equalled the correct index")
+          newIndex = randomNumber(randomNumberLength);
+          y=1;
         }
         else{
           randomArray[i] = newIndex;
+          i++;
         }
       }
     }
@@ -124,6 +139,7 @@ $( document ).ready(function() {
     var finalQuestion = [];
     var questions = [];
     var questionRandoms = randomArray(questionLimit, spellData.length);
+    console.log(questionRandoms);
     var i = 0;
     while (i < questionLimit) {
       newQuestionIndex = questionRandoms[i];
@@ -197,10 +213,22 @@ $( document ).ready(function() {
     var theFinalSay = $('<div>');
     var rightAnswers = chosenOption.filter(Boolean).length;
     var finalWords = $('<h1 class="hp title">');
-    finalWords.append("Congratulations! " + rightAnswers + " points to " + housePlacement);
+    finalWords.append(rightAnswers + " points to " + housePlacement);
     theFinalSay.append(finalWords);
     var finalTestScore = $('<h2>');
-    finalTestScore.append("You final score is " + rightAnswers + "/10.");
+    finalTestScore.append("You final score is " + rightAnswers + "/10");
+    if (rightAnswers <= 5) {
+      finalTestScore.append('<br>' + "How disappointing");
+    }
+    else if (rightAnswers < 8) {
+      finalTestScore.append('<br>' + "Not bad, not bad at all");
+    }
+    else if (rightAnswers < 10) {
+      finalTestScore.append('<br>' + "You are leading" + housePlacement + "towards victory");
+    }
+    else {
+      finalTestScore.append('<br>' + "You'd make your housemates proud!");
+    }
     theFinalSay.append(finalTestScore);
     questionView.append(theFinalSay);
   }
